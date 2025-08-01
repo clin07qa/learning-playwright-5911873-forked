@@ -29,6 +29,7 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: "http://practicesoftwaretesting.com",
+    testIdAttribute: 'data-test', // use data-test attribute for test selectors
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on",
