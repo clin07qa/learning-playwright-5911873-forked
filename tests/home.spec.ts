@@ -5,14 +5,19 @@ test.describe("home page with no auth", () => {
     await page.goto('https://practicesoftwaretesting.com/');
   })
 
-
+  test('homepage visual test', async( {page }) => {
+    await page.waitForLoadState('networkidle');
+    await expect(page).toHaveScreenshot('home-page-no-auth.png', 
+      { mask: [page.getByTitle('Practice Software Testing - Toolshop')] });
+;  });
+  
   test('check sign-in', async ({ page }) => {
     // ensure sign-in link is present
     await expect(page.getByTestId('nav-sign-in')).toHaveText('Sign in');
   });
 
   test('validate page title', async ({ page }) => {
-    await expect(page).toHaveTitle('Practice Software Testing - Toolshop - v5.0');
+    await expect(page).toHaveTitle('Practice Software Testing - Toolshop');
   });
 
   test('grid loads 9 items', async ({ page }) => {
@@ -38,6 +43,12 @@ test.describe('Homepage customer 01 auth', () => {
   test.beforeEach( async ({ page }) => {
     await page.goto('https://practicesoftwaretesting.com/');
   })
+
+  test('homepage visual test with auth user', async( { page }) => {
+    await page.waitForLoadState('networkidle');
+    await expect(page).toHaveScreenshot('home-page-customer01.png', 
+      { mask: [page.getByTitle('Practice Software Testing - Toolshop')] });
+;  });
 
   test('check customer 01 is signed in', async({ page }) => {
     await expect(page.getByTestId('nav-sign-in')).not.toBeVisible();
