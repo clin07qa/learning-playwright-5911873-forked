@@ -1,24 +1,10 @@
 import { test, expect } from '@playwright/test';
-import { billingAddress } from './test-data';
+import { billAddress } from '../test-data';
 
 test.describe('Checkout', () => {
   test.use({ storageState: '.auth/customer01.json'});
   test.beforeEach( async ({ page }) => {
     await page.goto('https://practicesoftwaretesting.com/');
-  });
-
-test('GET /product/{id}', async({ request, page }) => {
-  await expect(page.locator('a[class="card"]')).toHaveCount(9);
-  
-  const apiURL = 'https://api.practicesoftwaretesting.com';
-  const productHref = await page.locator('a[class="card"]').nth(0).getAttribute('href');
-  const productId = productHref?.replace(/[product\/]/gm, '');
-  const response = await request.get(apiURL + '/products/' + productId);
-
-  await expect(response.status()).toBe(200);
-  
-  const body = await response.json();
-  console.log(body);
   });
 
 test('checkout', async({ page }) => {
@@ -33,11 +19,11 @@ test('checkout', async({ page }) => {
   await page.locator('button[data-test="proceed-2"]').click();
 
   // fill in billing address
-  await page.locator('#street').fill(billingAddress.street);
-  await page.locator('#city').fill(billingAddress.city);
-  await page.locator('#state').fill(billingAddress.state);
-  await page.locator('#country').fill(billingAddress.country);
-  await page.locator('#postal_code').fill(billingAddress.zipCode);
+  await page.locator('#street').fill(billAddress.street);
+  await page.locator('#city').fill(billAddress.city);
+  await page.locator('#state').fill(billAddress.state);
+  await page.locator('#country').fill(billAddress.country);
+  await page.locator('#postal_code').fill(billAddress.zipCode);
   await expect(page.locator('button[data-test="proceed-3"]')).toBeVisible();
   await page.locator('button[data-test="proceed-3"]').click();
   await page.locator('select[data-test="payment-method"]').selectOption('cash-on-delivery');

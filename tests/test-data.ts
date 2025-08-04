@@ -1,4 +1,4 @@
-export const billingAddress = {
+export const billAddress = {
   street: '123 Wolf Rd',
   city: 'Albany',
   state: 'NY',

@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { LoginPage } from '../../pages/loginPage';
 
 test('login test', async ({ page }) => {
   await page.goto('http://practicesoftwaretesting.com/');
@@ -8,3 +9,10 @@ test('login test', async ({ page }) => {
   await page.locator('[data-test="login-submit"]').click();
   await expect(page.locator('[data-test="nav-menu"]')).toContainText('Jane Doe');
 });
+
+test('login with page object', async ({ page }) => {
+  const loginPage = new LoginPage(page);
+  await loginPage.goto();
+  await loginPage.login('customer@practicesoftwaretesting.com', 'welcome01');
+  await expect(page.getByTestId('nav-menu')).toContainText('Jane Doe');
+})
